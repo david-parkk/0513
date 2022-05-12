@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
+    <script>
+      function first(){
+        var parent=document.getElementById("body");
+        var child=document.getElementById("firstpage");
+        parent.removeChild(child);
+
+      }
+      function second(){
+        var parent=document.getElementById("body");
+        var child=document.getElementById("secondpage");
+        parent.removeChild(child);
+
+      }
+      function third(){
+        var parent=document.getElementById("body");
+        var child=document.getElementById("thirdpage");
+        parent.removeChild(child);
+
+      }
+    </script>
+  </head>
+  <body id="body">
+    <!-- <button onclick="first()" id="firstpage" class="page"><img src="firstpagejpg.jpg"></button>
+    <div id="secondpage" class="page">
+        <img src="logo.png">
+      <button id="first_tag"onclick="second()">#동부</button>
+      <button id="second_tag"onclick="second()">#서부</button>
+      <button id="third_tag"onclick="second()">#개방적인</button>
+      <button id="fourth_tag"onclick="second()">#보수적인</button>
+      <button id="fifth_tag"onclick="second()">#한인타운</button>
+    </div> -->
+    <!-- <div id="thirdpage">
+      <button id="first_choice"onclick="third()"></button>
+      <button id="second_choice"onclick="third()">#서부</button>
+      <button id="third_choice"onclick="third()">#개방적인</button>
+      <button id="fourth_choice"onclick="third()">#보수적인</button>
+      <button id="fifth_choice"onclick="third()">#한인타운</button>
+    </div> -->
+    <input id="menu1"type="radio"name="tab"checked>
+    <input id="menu2"type="radio"name="tab">
+    <input id="menu3"type="radio"name="tab">
+    <div class="container">
+    <header>
+      <div id="title">
+        <img href="/"src="logo.png">
+      </div>
+      <nav>
+        <div><label class="menu"for="menu1"></lable>지도</label></div>
+        <div><label class="menu"for="menu2">게시판</label></div>
+        <div><label class="menu"for="menu3">시간표</label></div>
+
+      </nav>
+      <div class="profile-wrap">
+
+        <div class="profile">
+          {% if user and user.id %}
+            <img src="people.png">
+            <div class="user-name">{{user.nick + '님'}}</div>
+          <!--  <div class="half">
+               <div>팔로잉</div>
+              <div class="count following-count">{{followingCount}}</div>
+            </div>-->
+            <!-- <div class="half">
+              <div>팔로워</div>
+              <div class="count follower-count">{{followerCount}}</div>
+            </div> -->
+          <input id="my-id" type="hidden" value="{{user.id}}">
+          <a id="my-profile" href="/profile" class="btn">내 프로필</a>
+          <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
+        {% else %}
+          <form id="login-form" action="/auth/login" method="post">
+            <div class="input-group">
+              <label for="email">이메일</label>
+              <input id="email" type="email" name="email" required autofocus>
+            </div>
+            <div class="input-group">
+              <label for="password">비밀번호</label>
+              <input id="password" type="password" name="password" required>
+            </div>
+            <a id="join" href="/join" class="button">회원가입</a>
+            <button id="login" type="submit" class="button">로그인</button>
+            <!-- <a id="kakao" href="/auth/kakao" class="button">카카오톡</a> -->
+          </form>
+        {% endif %}
+        </div>
+        <footer>
+
+        </footer>
+      </div>
+    </header>
+    <hr>
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      window.onload = () => {
+        if (new URL(location.href).searchParams.get('loginError')) {
+          alert(new URL(location.href).searchParams.get('loginError'));
+        }
+      };
+    </script>
+    {% block script %}
+    {% endblock %}
+  </body>
+</html>
